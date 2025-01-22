@@ -1,0 +1,63 @@
+.container{
+    place-self: center;
+    width:max(40%,300px);
+    border:1px solid var(--theme-color);
+    border-radius: 2%;
+    padding: 5%;
+}
+
+.screen{
+    width:70%;
+    margin-left: max(5vw,25px);
+    margin-top:50px;
+    margin-bottom: 50px;
+    color:#6d6d6d;
+    font-size: 16px;
+}
+
+.screen form{
+    gap:20px;
+}
+
+.add-img-upload img{
+    width: 120px;
+    cursor: pointer;
+}
+
+.add-category{
+    min-width: 125px;
+}
+
+.add-product-name input,
+.add-price input,
+.add-category select,
+.add-product-description textarea{
+    padding: 10px;
+    border: 1px solid var(--theme-color);
+    border-radius: 5px;
+    font-size: 14px;
+    color:#333;
+}
+
+.add-product-description textarea{
+    resize: none;
+}
+
+.add-btn{
+    max-width: 120px;
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-category-price{
+    display: flex;
+    gap:50px;
+}
+
+.add-price input{
+    width: 100%;;
+}
