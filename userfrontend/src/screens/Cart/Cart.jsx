@@ -5,7 +5,7 @@ import { assets } from "../../assets/assets";
 import {useNavigate} from 'react-router-dom'
 
 const Cart = () => {
-  const { cartItems, food_list, addToCart, removeFromCart,getTotalCartAmount } =
+  const { cartItems, food_list, addToCart, removeFromCart,getTotalCartAmount,url } =
     useContext(StoreContext);
   const navigate = useNavigate();
   return (
@@ -26,7 +26,7 @@ const Cart = () => {
           return (
             <>
               <div className="cart-items-title cart-items-item">
-                <img className="food-image" src={food.image} alt="" />
+                <img className="food-image" src={`${url}/image/${food.image}`} alt="" />
                 <p>{food.name}</p>
                 <p>{food.price}</p>
                 <p>{cartItems[food._id]}</p>

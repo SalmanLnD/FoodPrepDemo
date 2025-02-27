@@ -13,11 +13,11 @@ const addFood = async(req,res)=>{
             image:image_filename
         })
         
-        res.json({success:true,message:"Food item added successfully"})
+        res.status(201).json({message:"Food item added successfully"})
     }
     catch(error){
         console.log(error)
-        res.json({success:false,message:"error"})
+        res.status(500).json({message:"Error while adding food item"})
     }
 
 }
@@ -25,11 +25,11 @@ const addFood = async(req,res)=>{
 const listFood = async(req,res)=>{
     try{
         const foods = await foodModel.find({})
-        res.json({success:true,data:foods})
+        res.status(200).json({data:foods})
     }
     catch(error){
         console.log(error)
-        res.json({success:false,message:"error"})
+        res.status(500).json({message:"Error while fetching food items"})
     }
 }
 
@@ -39,10 +39,10 @@ const removeFood = async(req,res)=>{
         const food = await foodModel.findById(id)
         await fsPromises.unlink(path.join(__dirname,'..','uploads',`${food.image}`))
         await foodModel.findByIdAndDelete(id)
-        res.json({success:true,message:"food deleted successfully"})
+        res.status(200).json({message:"food deleted successfully"})
     } catch (error) {
         console.log(error)
-        res.json({success:false,message:"error"})
+        res.status(500).json({message:"Error while deleting food item"})
     }
 }
 
