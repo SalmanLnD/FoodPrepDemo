@@ -1,18 +1,17 @@
-.container{
-    place-self: center;
-    width:max(40%,300px);
-    border:1px solid var(--theme-color);
-    border-radius: 2%;
-    padding: 5%;
-}
-
 .screen{
     width:70%;
     margin-left: max(5vw,25px);
-    margin-top:50px;
-    margin-bottom: 50px;
+    margin-block: 50px;
     color:#6d6d6d;
-    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+.container{
+    place-self: center;
+    width: max(40%,300px);
+    border: 1px solid var(--theme-color);
+    border-radius: 2%;
+    padding: 5%;
 }
 
 .screen form{
@@ -28,21 +27,17 @@
     min-width: 125px;
 }
 
-.add-product-name input,
-.add-price input,
-.add-category select,
-.add-product-description textarea{
+.add-product-name input,.add-product-desc textarea,.add-price input,
+.add-category select{
     padding: 10px;
     border: 1px solid var(--theme-color);
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 1.4rem;
     color:#333;
 }
-
-.add-product-description textarea{
+.add-product-desc textarea{
     resize: none;
 }
-
 .add-btn{
     max-width: 120px;
     padding: 10px;
@@ -52,12 +47,10 @@
     cursor: pointer;
     border-radius: 5px;
 }
-
 .add-category-price{
     display: flex;
-    gap:50px;
+    gap:30px;
 }
-
 .add-price input{
-    width: 100%;;
+    width: 100%;
 }
