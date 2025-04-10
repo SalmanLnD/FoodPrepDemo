@@ -43,3 +43,10 @@ hr{
 .cursor{
   cursor: pointer;
 }
+
+@media (max-width: 420px) {
+  .app-content{
+    flex-direction: column;
+    align-items: center;
+  }
+}
