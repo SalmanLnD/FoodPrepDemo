@@ -79,8 +79,30 @@ const userOrders = async(req,res)=>{
   }
 }
 
+const listOrders = async(req,res)=>{
+  try {
+    const orders = await orderModel.find({})
+    res.status(200).json({data:orders})
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({message:"Internal servel error"})
+  }
+}
+
+const updateStatus = async(req,res)=>{
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+    res.json({message:"Status updated"})
+  } catch (error) {
+    console.log(error)
+    res.json({message:error.message})
+  }
+}
+
 module.exports = {
   placeOrder,
   verifyOrder,
-  userOrders
+  userOrders,
+  listOrders,
+  updateStatus
 };

@@ -32,7 +32,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <hr />
+      <hr className="footer-hr" />
       <p className='footer-copyright'>Copyright 2024 © 2021 FoodPrep. All rights reserved.</p>
     </div>
   )

@@ -69,6 +69,10 @@
   padding: 6px;
 }
 
+.food-count{
+  font-size: 1.3rem;
+}
+
 .food-item-counter img{
   width: 30px;;
 }

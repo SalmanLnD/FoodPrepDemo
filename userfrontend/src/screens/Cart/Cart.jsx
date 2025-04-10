@@ -37,7 +37,7 @@ const Cart = () => {
                     src={assets.remove_icon_red}
                     alt=""
                   />
-                  <p>{cartItems[food._id]}</p>
+                  <p >{cartItems[food._id]}</p>
                   <img
                     onClick={() => addToCart(food._id)}
                     src={assets.add_icon_green}
