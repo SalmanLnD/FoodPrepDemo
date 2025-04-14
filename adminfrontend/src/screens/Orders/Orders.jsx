@@ -4,8 +4,14 @@ import './Orders.css'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import {assets} from '../../assets/assets'
+import { useContext } from "react";
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const Orders = ({url}) => {
+  const navigate = useNavigate();
+  const { token, admin } = useContext(StoreContext);
+
   const [orders,setOrders] = useState([])
 
   const statusHandler = async(e,orderId)=>{
@@ -26,13 +32,18 @@ const Orders = ({url}) => {
     }
   }
 
-  useEffect(()=>{
-    fetchAllOrders()
-  },[])
+  useEffect(() => {
+    if (!admin && !token) {
+      toast.error("Please Login First");
+      navigate("/");
+    }
+    fetchAllOrders();
+  }, []);
 
   return (
     <div className='orders screen'>
       <h3>Order Page</h3>
+      {!orders.length && <> <br></br> <p> No Orders found </p> </> }
       <div className="orders-list">
         {orders.map((order,index)=>(
           <div key={index} className="order-item">

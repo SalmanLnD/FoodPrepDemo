@@ -21,8 +21,9 @@ const loginUser = async (req, res) => {
         if(!isMatch)
             return res.status(400).json({ message: 'Invalid email or password' })
 
+        const role=user.role;
         const token = createToken(user._id)
-        res.status(200).json({ message: 'User logged in successfully', token })
+        res.status(200).json({ message: 'User logged in successfully', token ,role})
 
     } catch (error) {
         console.log(error)
@@ -48,10 +49,10 @@ const registerUser = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = userModel.create({ name, email, password: hashedPassword })
-
+        const role=user.role;
         const token = createToken(user._id)
 
-        res.status(201).json({ message: 'User created successfully', token })
+        res.status(201).json({ message: 'User created successfully', token,role })
 
     } catch (error) {
 

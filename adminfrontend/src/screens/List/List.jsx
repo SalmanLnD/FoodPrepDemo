@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const List = ({ url }) => {
+  const navigate = useNavigate();
+  const { token,admin } = useContext(StoreContext);
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -17,6 +22,10 @@ const List = ({ url }) => {
   };
 
   useEffect(() => {
+    if (!admin && !token) {
+      toast.error("Please Login First");
+      navigate("/");
+    }
     fetchList();
   }, []);
 

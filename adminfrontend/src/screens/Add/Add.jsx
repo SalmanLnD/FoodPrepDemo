@@ -3,11 +3,16 @@ import {useState,useEffect} from 'react'
 import './Add.css'
 import {assets} from '../../assets/assets'
 import axios from 'axios'
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import { StoreContext } from "../../context/StoreContext";
+import {useNavigate } from "react-router-dom";
 
 const Add = ({url}) => {
   const [image,setImage] = useState(false)
-
+  
+  const navigate=useNavigate();
+  const {token,admin} = useContext(StoreContext);
   const [data,setData] = useState({
     foodName:"",
     description:"",
@@ -44,6 +49,13 @@ const Add = ({url}) => {
     }
 
   }
+
+  useEffect(()=>{
+    if(!admin && !token){
+      toast.error("Please Login First");
+       navigate("/");
+    }
+  },[])
 
   return (
     <div className='screen'> 
