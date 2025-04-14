@@ -52,9 +52,9 @@ const Orders = ({url}) => {
               <p className="order-item-food">
                 {order.items.map((item,itemIndex)=>{
                   if(itemIndex===order.items.length-1)
-                    return item.name + " x " +item.quantity 
+                    return item.name + "\u00A0x\u00A0" +item.quantity 
                   else
-                    return item.name + " x " +item.quantity +", "
+                    return item.name + "\u00A0x\u00A0" +item.quantity +", "
                 })}
               </p>
               <p className='order-item-name'>{order.address.first_name+" "+order.address.first_name}</p>
