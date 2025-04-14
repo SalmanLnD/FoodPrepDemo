@@ -27,7 +27,7 @@ const Login = ({ url }) => {
         setAdmin(true);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("admin", true);
-        toast.success("Login Successfully");
+        toast.success("Login Successful");
         navigate("/add")
       }else{
         toast.error("You are not an admin");
