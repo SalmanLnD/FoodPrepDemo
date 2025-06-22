@@ -1,49 +1,50 @@
-const foodModel = require('../models/foodModel')
-const fsPromises = require('fs').promises
-const path = require('path')
+const foodModel = require('../models/foodModel');
+const { cloudinary } = require('../config/cloudinary');
 
-const addFood = async(req,res)=>{
-    let image_filename = `${req.file.filename}`
-    try{
-        const food = foodModel.create({
-            name:req.body.name,
-            description:req.body.description,
-            price:req.body.price,
-            category:req.body.category,
-            image:image_filename
-        })
-        
-        res.status(201).json({message:"Food item added successfully"})
-    }
-    catch(error){
-        console.log(error)
-        res.status(500).json({message:"Error while adding food item"})
+const addFood = async (req, res) => {
+  try {
+    const food = await foodModel.create({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      image: req.file.path, // ✅ Full Cloudinary URL
+    });
+    res.json({ success: true, message: 'Food added' });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: 'Error adding food' });
+  }
+};
+
+const listFood = async (req, res) => {
+  try {
+    const foods = await foodModel.find();
+    res.status(200).json({ success: true, data: foods });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching foods' });
+  }
+};
+
+const removeFood = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const food = await foodModel.findById(id);
+    if (!food) {
+      return res.status(404).json({ success: false, message: 'Food not found' });
     }
 
-}
+    // Optional: delete image from Cloudinary
+    const publicId = food.image.split('/').pop().split('.')[0];
+    await cloudinary.uploader.destroy(`foodprep_uploads/${publicId}`);
 
-const listFood = async(req,res)=>{
-    try{
-        const foods = await foodModel.find({})
-        res.status(200).json({data:foods})
-    }
-    catch(error){
-        console.log(error)
-        res.status(500).json({message:"Error while fetching food items"})
-    }
-}
+    await foodModel.deleteOne({ _id: id });
+    res.status(200).json({ success: true, message: 'Food deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error deleting food' });
+  }
+};
 
-const removeFood = async(req,res)=>{
-    try {
-        const {id} = req.query
-        const food = await foodModel.findById(id)
-        await fsPromises.unlink(path.join(__dirname,'..','uploads',`${food.image}`))
-        await foodModel.findByIdAndDelete(id)
-        res.status(200).json({message:"food deleted successfully"})
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({message:"Error while deleting food item"})
-    }
-}
-
-module.exports = {addFood,listFood,removeFood}
+module.exports = { addFood, listFood, removeFood };
